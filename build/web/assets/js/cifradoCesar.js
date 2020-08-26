@@ -2,13 +2,15 @@ const message = document.getElementById("msg");
 const cifrar = document.getElementById("cifrar");
 const descifrar = document.getElementById("descifrar");
 const btnHallar = document.getElementById("btn");
-const salto = 3;
-const abecedario = "abcdefghijklmnñopqrstuvwxyz";
+const des = document.getElementById("des");
+const abecedario = document.getElementById("abc").value;
+const res = document.getElementById("response");
 
 //podemos a la escucha un evento click
 btnHallar.addEventListener('click',handlerClick);
 
-const cifrarC = (message) => {
+const cifrarAndDescifrar = (message, option, des) => {
+    des = Number(des);
     //message = Hola.
     message = message.toLowerCase();
     const messageSplit = message.split("");
@@ -18,18 +20,17 @@ const cifrarC = (message) => {
         //h -> k  i = 0
         //o -> r  i = 1
         const index = abecedario.indexOf(messageSplit[i]);
-        response += index===-1?messageSplit[i]:nextCharacter2(index);
+        response += index===-1?messageSplit[i]:option==='c'?nextCharacter2(index,des):prevCharacter2(index,des);
     }
-    console.log(response);
     return response;
 };
 
-const nextCharacter2 = (index) => {
+const nextCharacter2 = (index, des) => {
     //abecedario = a b c d = 4
     //cifrar = b
     //index = 1
     //salto = 3
-    const newIndex = index + salto;//4
+    const newIndex = index + des;//4
     if(newIndex < abecedario.length){
         return abecedario[newIndex];
     }
@@ -37,13 +38,26 @@ const nextCharacter2 = (index) => {
     return abecedario[diff];
 };
 
-const nextCharacter = (index) => {
+const prevCharacter2 = (index, des) => {
+    //abecedario = a b c d = 4
+    //cifrar = c
+    //index = 2
+    //salto = 3
+    const newIndex = index - des;//-1
+    if(newIndex >= 0){
+        return abecedario[newIndex];
+    }
+    const diff =  abecedario.length - Math.abs(newIndex);
+    return abecedario[diff];
+};
+
+const nextCharacter = (index, des) => {
     let c = null;
     let countPasos = 0;
     while(c === null){
         countPasos++;//i
         index++;
-        if(countPasos === salto){
+        if(countPasos === des){
             c = abecedario[index];
         }
         if(index >= abecedario.length){
@@ -56,9 +70,10 @@ const nextCharacter = (index) => {
 function handlerClick(){
    if(cifrar.checked){//cifrar
        console.log("cifrando")
-       cifrarC(message.value);
+       res.innerHTML = `El texto <span class="b">${message.value}</span> cifrado es: <span class="b">${cifrarAndDescifrar(message.value,'c',des.value)}</span>`;
    }else{//descrifrar
        console.log("descifrando")
+       res.innerHTML = `El texto <span class="b">${message.value}</span> descifrado es: <span class="b">${cifrarAndDescifrar(message.value,'d',des.value)}</span>`;
    } 
 }
 

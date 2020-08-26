@@ -9,6 +9,11 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .b{
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body>
         <div class="cifrado-cesar">
@@ -18,8 +23,20 @@ and open the template in the editor.
                     <input type="text" name="msg" id="msg">
                     <div class="cifrado-cesar__group">
                         <div class="cifrado-cesar__item">
+                            <label>Abecedario: </label>
+                            <input type="text" value="abcdefghijklmnñopqrstuvwxyz" id="abc">
+                        </div>
+                    </div>
+                    <div class="cifrado-cesar__group">
+                        <div class="cifrado-cesar__item">
+                            <label>Desplazamiento: </label>
+                            <input type="number" value="2" id="des">
+                        </div>
+                    </div>
+                    <div class="cifrado-cesar__group">
+                        <div class="cifrado-cesar__item">
                             <label>Cifrar</label>
-                            <input type="radio" name="option" value="cifrar" id="cifrar">
+                            <input type="radio" name="option" value="cifrar" id="cifrar" checked>
                         </div>
                         <div class="cifrado-cesar__item">
                             <label>Descifrar</label>
@@ -28,6 +45,9 @@ and open the template in the editor.
                     </div>
                     <button type="button" class="cifrado-cesar__button" id="btn">Hallar</button>
                 </form>
+                <p class="cifrado-cesar__response" id="response">
+                    
+                </p>
             </div>
         </div>
         <script src="assets/js/cifradoCesar.js"></script>
